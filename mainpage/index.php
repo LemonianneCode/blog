@@ -216,8 +216,8 @@ $posts = $stmt->get_result();
             <p><?php echo e($message); ?></p>
         <?php endif; ?>
 
-        <div class="navbar">
-            <button onclick="menu.hidden^=1" class="menu-icon">MENU</button>
+        <div class="menu-icon">
+            <button onclick="menu.hidden^=1">MENU</button>
             <ul id="menu" hidden>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="profile.php">Profile</a></li>
