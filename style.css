@@ -154,11 +154,70 @@ body{
 }
 
 #login-button{
+    background-color: #333;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
     transition: 0.5s ease-in-out;
 }
 
 #login-button:hover{
-    background-color: #333;
+    background-color: #555;
     color: #fff;
     transition: 0.5s ease-in-out;
+}
+
+#login-button,
+.forgot-link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 46px;
+    margin: 6px 0;
+    border-radius: 5px;
+}
+
+.container a.forgot-link{
+    background-color: #f7f7f7;
+}
+
+.form-message{
+    margin: 4px 0;
+    color: #a12622;
+    font-size: 13px;
+}
+
+.attempts-message{
+    margin: 2px 0 5px;
+    color: #666;
+    font-size: 12px;
+}
+
+.forgot-container{
+    height: auto;
+    min-height: 500px;
+}
+
+.forgot-container .form-container{
+    height: auto;
+    min-height: 460px;
+}
+
+.forgot-container form{
+    height: auto;
+    padding: 30px 40px;
+}
+
+.forgot-container h1{
+    margin-bottom: 12px;
+}
+
+.forgot-container input{
+    margin: 6px 0;
+    padding: 11px 12px;
+}
+
+.forgot-container .form-message{
+    margin: 6px 0;
 }

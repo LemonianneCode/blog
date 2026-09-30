@@ -1,29 +1,63 @@
 <?php
- session_start();
- include ('includes/db_conn.php');
+session_start();
+include ('includes/db_conn.php');
 
- if(isset($_POST['login'])){
-  if($_POST['username'] != "" && $_POST['password'] != ""){
-    $Uname = $_POST['username'];
-    $Pass = crc32($_POST['password']);
+if (isset($_GET['back_to_login'])) {
+    unset($_SESSION['login_attempts'], $_SESSION['reset_user_id']);
+    session_regenerate_id(true);
+    header('Location: index.php');
+    exit;
+}
 
-    $sql = "SELECT ID FROM acc_info WHERE USERNAME = '$Uname' AND PASSWORD = '$Pass'";
-    $query = $dbconn->query($sql);
+$attemptLimit = 5;
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+}
 
-     if ($_POST['username'] == "root" and $_POST['password'] == "admin123"){
-      header('location: Admin/index.php');
-     } else if(!empty($row=$query->fetch_assoc())){
-      $_SESSION['user_id'] = $row['ID'];
-      header('location:mainpage/index.php');
-      exit;
-     }else{
-      header('location:error.php');
-      exit;
-     }
-  }else{
-    echo "<script>alert('No input. Please enter your username and password.');</script>";
-  }
- }
+if ($_SESSION['login_attempts'] >= $attemptLimit) {
+    header('Location: forgot_password.php');
+    exit;
+}
+
+$attemptsLeft = $attemptLimit - $_SESSION['login_attempts'];
+$errorMessage = '';
+
+if (isset($_POST['login'])) {
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    if ($username === '' || $password === '') {
+        $errorMessage = 'Please enter your username and password.';
+    } elseif ($username === 'root' && $password === 'admin123') {
+        $_SESSION['login_attempts'] = 0;
+        header('Location: Admin/index.php');
+        exit;
+    } else {
+        $stmt = $dbconn->prepare('SELECT ID, PASSWORD FROM acc_info WHERE USERNAME = ?');
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+
+        if ($user && (string) $user['PASSWORD'] === (string) crc32($password)) {
+            $_SESSION['user_id'] = $user['ID'];
+            $_SESSION['login_attempts'] = 0;
+            header('Location: mainpage/index.php');
+            exit;
+        }
+
+        $_SESSION['login_attempts']++;
+        $attemptsLeft = $attemptLimit - $_SESSION['login_attempts'];
+
+        if ($attemptsLeft === 0) {
+            header('Location: forgot_password.php');
+            exit;
+        }
+
+        $errorMessage = 'Invalid username or password. You have ' . $attemptsLeft . ' attempts left.';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +73,9 @@
             <form method="POST" action="">
                 <h1>Sign In</h1>
                 <span>Enter your email and password</span>
+                <?php if ($errorMessage !== ''): ?>
+                    <p class="form-message" role="alert"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?></p>
+                <?php endif; ?>
                 <input type="text" name="username" placeholder="Username" id="username" required>
                 <div class="password-field">
                     <input type="password" id="password" name="password" placeholder="Password" required>
@@ -51,6 +88,8 @@
                     </button>
                 </div>
                 <input type="SUBMIT" name="login" value="LOG IN" id="login-button">
+                <p class="attempts-message">Login attempts remaining: <?php echo $attemptsLeft; ?></p>
+                <a class="forgot-link" href="forgot_password.php">Forgot password?</a>
                 <span>Don't have account yet?</span>
                 <a href="registration.php"><i>Sign Up</i></a>
             </form>
