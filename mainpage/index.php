@@ -207,23 +207,22 @@ $posts = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Posts</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div class="container">
         <h1>Share Your Blog</h1>
 
+        <nav class="profile-nav" aria-label="Main navigation">
+            <a href="index.php" aria-current="page">Home</a>
+            <a href="profile.php">Profile</a>
+            <a href="settings.php">Settings</a>
+            <a class="profile-logout" href="index.php?logout=1">Log out</a>
+        </nav>
+
         <?php if ($message !== ''): ?>
             <p><?php echo e($message); ?></p>
         <?php endif; ?>
-
-        <div class="menu-icon">
-            <button onclick="menu.hidden^=1">MENU</button>
-            <ul id="menu" hidden>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="profile.php">Profile</a></li>
-                <li><a href="settings.php">Settings</a></li>
-            </ul>    
-        </div>
 
         <form method="POST" action="index.php" enctype="multipart/form-data" class="post-form">
             <input type="hidden" name="action" value="create">
@@ -265,7 +264,6 @@ $posts = $stmt->get_result();
             <?php endif; ?>
         </div>
 
-        <a href="index.php?logout=1">Log out</a>
     </div>
 </body>
 </html>
