@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+/.phpunit.cache/
+/imgstorage/*
+!/imgstorage/.gitkeep
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+desktop.ini
