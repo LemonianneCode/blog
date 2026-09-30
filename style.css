@@ -101,7 +101,3 @@ body{
     /* Use a bolder font weight for "Sign Up" */
     font-weight: 600; 
 }
-/* This button CSS is kept but is unused as the button was removed to match the image */
-.container button{  
-    /* ... button styles ... */
-}
