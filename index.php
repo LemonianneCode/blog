@@ -39,9 +39,18 @@
             <form method="POST" action="">
                 <h1>Sign In</h1>
                 <span>Enter your email and password</span>
-                <input type="text" name="username" placeholder="Username">
-                <input type="password" name="password" placeholder="Password">
-                <input type="SUBMIT" name="login" value="LOG IN">
+                <input type="text" name="username" placeholder="Username" id="username" required>
+                <div class="password-field">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <button class="toggle-password" type="button" aria-label="Show password" aria-pressed="false" title="Show password">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path class="eye-slash" d="m4 4 16 16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <input type="SUBMIT" name="login" value="LOG IN" id="login-button">
                 <span>Don't have account yet?</span>
                 <a href="registration.php"><i>Sign Up</i></a>
             </form>

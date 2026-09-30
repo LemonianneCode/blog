@@ -1,4 +1,4 @@
 <?php
- $dbconn = new mysqli('localhost', 'root', '', 'blogsite','3306');
+ $dbconn = new mysqli('localhost', 'root', '', 'blogsite','3307');
  //change the 3307 to 3306 if di working sainyo
 ?>

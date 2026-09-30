@@ -28,7 +28,7 @@ body{
     /* Set to white background to match the image */
     background-color: #fff; 
     border-radius: 20px; /* Slightly reduced border-radius */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow to match image */
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
     position: relative;
     overflow: hidden;
     /* Fixed size for the card to replicate the look */
@@ -93,11 +93,72 @@ body{
     box-sizing: border-box;
 }
 
+.password-field{
+    position: relative;
+    width: 100%;
+}
+
+.password-field input{
+    padding-right: 48px;
+}
+
+.toggle-password{
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border: 0;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+.toggle-password svg{
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.toggle-password .eye-slash{
+    display: none;
+}
+
+.toggle-password[aria-pressed="true"] .eye-slash{
+    display: block;
+}
+
+.toggle-password:focus-visible{
+    outline: 2px solid #666;
+    outline-offset: 2px;
+}
+
 .container a{
     color: #333;
     font-size: 14px;
     text-decoration: none;
-    margin-top: 5px; /* Adjusted margin */
-    /* Use a bolder font weight for "Sign Up" */
+    margin-top: 5px; 
     font-weight: 600; 
+}
+
+
+#username , #password, #login-button{
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+#login-button{
+    transition: 0.5s ease-in-out;
+}
+
+#login-button:hover{
+    background-color: #333;
+    color: #fff;
+    transition: 0.5s ease-in-out;
 }
