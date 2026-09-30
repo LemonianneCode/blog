@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Use a consistent font from the import */
+    font-family: 'Playfair Display', serif; 
+}
+
+/* --- Global Body & Centering --- */
+
+body{
+    /* Use the same centering technique you had */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    /* Set a neutral background color behind the card, or remove for plain white page */
+    background-color: #f0f0f0; 
+    /* Removed background-image: url(bg.png); to ensure consistency */
+}
+
+/* --- Container (The Card) --- */
+
+.container {
+    /* Set to white background to match the image */
+    background-color: #fff; 
+    border-radius: 20px; /* Slightly reduced border-radius */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow to match image */
+    position: relative;
+    overflow: hidden;
+    /* Fixed size for the card to replicate the look */
+    width: 400px;
+    height: 500px;
+    padding: 20px; /* Internal padding */
+}
+
+/* --- Form Centering --- */
+
+.form-container{
+    /* Use flex to ensure content fills and centers within the container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.sign-in{
+    /* This class is mostly redundant now, but keeps the structure */
+    width: 100%;
+}
+
+/* --- Form Styling --- */
+
+.container form{
+    /* Use white background to match the image */
+    background-color: #fff; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px; /* Adjusted padding */
+    height: 100%;
+    text-align: center; /* Center text elements like h1 and span */
+}
+
+/* --- Elements --- */
+
+.container h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.container span{
+    font-size: 14px; /* Increased font size for readability */
+    color: #666;
+    margin-bottom: 15px; /* Added spacing after the span */
+}
+
+.container input{
+    /* The light grey background color for the inputs */
+    background-color: #f7f7f7; 
+    border: none;
+    margin: 10px 0;
+    padding: 15px 15px;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.container a{
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: 5px; /* Adjusted margin */
+    /* Use a bolder font weight for "Sign Up" */
+    font-weight: 600; 
+}
+/* This button CSS is kept but is unused as the button was removed to match the image */
+.container button{  
+    /* ... button styles ... */
+}

@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif; 
+}
+
+/* --- Global Body & Centering --- */
+
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #f0f0f0; 
+}
+
+/* --- Container (The Card) --- */
+
+.container {
+    background-color: #fff; 
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden; 
+    width: 400px;
+    height: 780px; /* FIXED: Increased height to fit both forms */
+    padding: 20px;
+}
+
+/* --- Form Centering --- */
+
+.form-container{
+    /* FIXED: Use flex-direction: column to stack the two form blocks cleanly */
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.sign-in{
+    width: 100%;
+}
+
+/* --- Form Styling (For the primary registration form) --- */
+
+.container form{
+    background-color: #fff; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    /* Removed fixed height: 100% here so the two forms can share space */
+    height: auto; 
+    width: 100%;
+    text-align: center;
+}
+
+/* --- Elements --- */
+
+.container span{
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.container input{
+    background-color: #f7f7f7; 
+    border: none;
+    margin: 8px 0;
+    padding: 15px 15px;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+    box-sizing: border-box;
+    color: #666; 
+}
+
+/* Style for the primary submit button (REGISTER/LOG IN) */
+.container form input[type="SUBMIT"] {
+    background-color: #eee;
+    color: #333;
+    font-size: 14px;
+    padding: 15px 45px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-weight: 600;
+    letter-spacing: 0.10px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* --- Back Button Styling --- */
+
+.back-button-form {
+    /* This form takes full width */
+    width: 100%;
+    margin-top: 15px; 
+    padding: 0 40px; /* Match the padding of the main form */
+}
+
+.back-button-form input[type="submit"] {
+    /* Style the button similarly to the Register button, but less prominent */
+    background-color: #f0f0f0;
+    color: #666;
+    font-size: 14px;
+    padding: 10px 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%; /* Make it full width like the main inputs */
+}
+
+/* Removed the unused .container button rule */
+/* .container button{ ... } */
