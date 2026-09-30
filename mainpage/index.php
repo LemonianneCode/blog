@@ -216,6 +216,15 @@ $posts = $stmt->get_result();
             <p><?php echo e($message); ?></p>
         <?php endif; ?>
 
+        <div class="navbar">
+            <button onclick="menu.hidden^=1" class="menu-icon">MENU</button>
+            <ul id="menu" hidden>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="settings.php">Settings</a></li>
+            </ul>    
+        </div>
+
         <form method="POST" action="index.php" enctype="multipart/form-data" class="post-form">
             <input type="hidden" name="action" value="create">
             <textarea name="content" placeholder="Write your blog post..." required></textarea>
