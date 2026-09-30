@@ -1,0 +1,280 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  color: #202b3c;
+  background: #f4f6fa;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at top left, rgba(228, 236, 255, 0.7), transparent 38rem),
+    #f4f6fa;
+  color: #202b3c;
+  font: 15px/1.5 Inter, "Segoe UI", Arial, sans-serif;
+}
+
+.admin-page {
+  width: min(100% - 48px, 1360px);
+  margin: 0 auto;
+  padding: 64px 0;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #566fe0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: #182235;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(30px, 4vw, 40px);
+  letter-spacing: -0.04em;
+}
+
+.page-description {
+  margin: 9px 0 0;
+  color: #758096;
+}
+
+.table-card {
+  overflow: hidden;
+  border: 1px solid #e5e9f1;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(34, 48, 76, 0.06);
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.account-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.account-table th,
+.account-table td {
+  padding: 15px 18px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.account-table th {
+  background: #f8f9fc;
+  color: #66728a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.account-table td {
+  color: #39465c;
+}
+
+.account-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.account-table tbody tr:hover {
+  background: #f8faff;
+}
+
+.form-card {
+  margin-top: 22px;
+  padding: 24px;
+  border: 1px solid #e5e9f1;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(34, 48, 76, 0.06);
+}
+
+.form-card h2 {
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.section-description {
+  margin: 7px 0 20px;
+  color: #758096;
+}
+
+.notice {
+  margin: 0 0 20px;
+  padding: 13px 16px;
+  border: 1px solid #dce5ff;
+  border-radius: 9px;
+  background: #eef2ff;
+  color: #4059a8;
+}
+
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.admin-form label {
+  display: grid;
+  gap: 7px;
+  color: #536078;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.admin-form input:not([type="submit"]):not([type="hidden"]),
+.admin-form select {
+  width: 100%;
+  min-height: 43px;
+  padding: 9px 12px;
+  border: 1px solid #dce1eb;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: #29364c;
+  font: inherit;
+  font-weight: 400;
+}
+
+.admin-form input:focus,
+.admin-form select:focus {
+  border-color: #788be5;
+  box-shadow: 0 0 0 3px rgba(86, 111, 224, 0.13);
+}
+
+.admin-form--lookup {
+  grid-template-columns: minmax(130px, auto) minmax(180px, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+}
+
+.admin-form--lookup label {
+  align-self: center;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.admin-actions form {
+  margin: 0;
+}
+
+.button,
+button,
+input[type="submit"] {
+  min-height: 42px;
+  padding: 0 17px;
+  border: 1px solid #566fe0;
+  border-radius: 8px;
+  background: #566fe0;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover {
+  transform: translateY(-1px);
+  border-color: #4059ca;
+  background: #4059ca;
+}
+
+.button-danger {
+  border-color: #d95763;
+  background: #d95763;
+}
+
+.button-danger:hover {
+  border-color: #bc3f4c;
+  background: #bc3f4c;
+}
+
+.button-quiet {
+  border-color: #e2e6ee;
+  background: #fff;
+  color: #536078;
+}
+
+.button-quiet:hover {
+  border-color: #cdd4e1;
+  background: #f8f9fc;
+  color: #29364c;
+}
+
+@media (max-width: 640px) {
+  .admin-page {
+    width: min(100% - 28px, 1360px);
+    padding: 36px 0;
+  }
+
+  .page-header {
+    margin-bottom: 20px;
+  }
+
+  .form-card {
+    padding: 18px;
+  }
+
+  .account-table th,
+  .account-table td {
+    padding: 12px 14px;
+  }
+
+  .admin-form,
+  .admin-form--lookup {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    grid-column: auto;
+  }
+
+  .admin-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .admin-actions form,
+  .admin-actions .button {
+    width: 100%;
+  }
+}

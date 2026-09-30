@@ -4,23 +4,42 @@ include ('../includes/db_conn.php');
 $sql = "SELECT * FROM acc_info ORDER BY LNAME ASC";
 $query = $dbconn->query($sql);
 
-// 1. Start the table and add headers
-echo "<table border='1' style='width:100%; border-collapse: collapse;'>";
-echo "<thead>";
-echo "<tr>";
-echo "<th>ID</th>";
-echo "<th>Last Name</th>";
-echo "<th>First Name</th>";
-echo "<th>Middle Name</th>";
-echo "<th>Gender</th>";
-echo "<th>Birthday</th>";
-echo "<th>Username</th>";
-echo "<th>Password</th>"; // This is the column for $pass
-echo "</tr>";
-echo "</thead>";
-echo "<tbody>";
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="admin.css">
+  <title>Admin panel</title>
+</head>
+<body>
+  <main class="admin-page">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Administration</p>
+        <h1>Accounts</h1>
+        <p class="page-description">Manage registered blog accounts.</p>
+      </div>
+    </header>
+    <section class="table-card" aria-label="Registered accounts">
+      <div class="table-scroll">
+        <table class="account-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Gender</th>
+              <th>Birthday</th>
+              <th>Username</th>
+              <th>Password</th>
+            </tr>
+          </thead>
+          <tbody>
 
-// 2. Loop through the results and output a table row (<tr>) for each record
+<?php
 while($row = $query->fetch_assoc()){
     $uid = $row['ID'];
     $fname = $row['FNAME'];
@@ -31,7 +50,6 @@ while($row = $query->fetch_assoc()){
     $uname = $row['USERNAME'];
     $pass = $row['PASSWORD'];
 
-    // Output the table row using the variables
     echo "<tr>";
     echo "<td>" . $uid . "</td>";
     echo "<td>" . $lname . "</td>";
@@ -40,23 +58,25 @@ while($row = $query->fetch_assoc()){
     echo "<td>" . $gender . "</td>";
     echo "<td>" . $bday . "</td>";
     echo "<td>" . $uname . "</td>";
-    echo "<td>" . $pass . "</td>"; // This uses the $pass variable
+    echo "<td>" . $pass . "</td>";
     echo "</tr>";
 }
-
-// 3. Close the table
-echo "</tbody>";
-echo "</table>";
 ?>
-
-<form method="GET" action="del.php">
-  <input type="SUBMIT" value="DELETE ACCOUNT">
-  </form>
-
-<form method="GET" action="upd.php">
-  <input type="SUBMIT" value="UPDATE ACCOUNT">
-  </form>
-
-<form method="GET" action="../index.php">
-  <input type="SUBMIT" value="LOG OUT">
-  </form>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <nav class="admin-actions" aria-label="Admin actions">
+      <form method="GET" action="del.php">
+        <input class="button button-danger" type="submit" value="Delete account">
+      </form>
+      <form method="GET" action="upd.php">
+        <input class="button" type="submit" value="Update account">
+      </form>
+      <form method="GET" action="../index.php">
+        <input class="button button-quiet" type="submit" value="Log out">
+      </form>
+    </nav>
+  </main>
+</body>
+</html>

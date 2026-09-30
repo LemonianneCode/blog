@@ -4,50 +4,6 @@ include('../includes/db_conn.php');
 $sql = "SELECT * FROM acc_info ORDER BY LNAME ASC";
 $query = $dbconn->query($sql);
 
-// 1. Start the table and add headers
-echo "<table border='1' style='width:100%; border-collapse: collapse;'>";
-echo "<thead>";
-echo "<tr>";
-echo "<th>ID</th>";
-echo "<th>Last Name</th>";
-echo "<th>First Name</th>";
-echo "<th>Middle Name</th>";
-echo "<th>Gender</th>";
-echo "<th>Birthday</th>";
-echo "<th>Username</th>";
-echo "<th>Password</th>";
-echo "</tr>";
-echo "</thead>";
-echo "<tbody>";
-
-// 2. Loop through the results and output a table row (<tr>) for each record
-while($row = $query->fetch_assoc()){
-    $uid = $row['ID'];
-    $fname = $row['FNAME'];
-    $mname = $row['MNAME'];
-    $lname = $row['LNAME'];
-    $gender = $row['GENDER'];
-    $bday = $row['BDAY'];
-    $uname = $row['USERNAME'];
-    $pass = $row['PASSWORD'];
-
-    // Output the table row using the variables
-    echo "<tr>";
-    echo "<td>" . $uid . "</td>";
-    echo "<td>" . $lname . "</td>";
-    echo "<td>" . $fname . "</td>";
-    echo "<td>" . $mname . "</td>";
-    echo "<td>" . $gender . "</td>";
-    echo "<td>" . $bday . "</td>";
-    echo "<td>" . $uname . "</td>";
-    echo "<td>" . $pass . "</td>"; // This uses the $pass variable
-    echo "</tr>";
-}
-
-// 3. Close the table
-echo "</tbody>";
-echo "</table>";
-
 $account = null;
 $message = '';
 
@@ -114,57 +70,121 @@ function e($value): string
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="admin.css">
+  <title>Update account | Admin panel</title>
+</head>
+<body>
+  <main class="admin-page">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Administration</p>
+        <h1>Update account</h1>
+        <p class="page-description">Find and edit a registered blog account.</p>
+      </div>
+    </header>
 
-<h2>Update Account</h2>
+    <?php if ($message !== ''): ?>
+      <p class="notice" role="status"><?php echo e($message); ?></p>
+    <?php endif; ?>
 
-<?php if ($message !== ''): ?>
-    <p><?php echo e($message); ?></p>
-<?php endif; ?>
+    <section class="table-card" aria-label="Registered accounts">
+      <div class="table-scroll">
+        <table class="account-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Gender</th>
+              <th>Birthday</th>
+              <th>Username</th>
+              <th>Password</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php while ($row = $query->fetch_assoc()): ?>
+              <tr>
+                <td><?php echo e($row['ID']); ?></td>
+                <td><?php echo e($row['LNAME']); ?></td>
+                <td><?php echo e($row['FNAME']); ?></td>
+                <td><?php echo e($row['MNAME']); ?></td>
+                <td><?php echo e($row['GENDER']); ?></td>
+                <td><?php echo e($row['BDAY']); ?></td>
+                <td><?php echo e($row['USERNAME']); ?></td>
+                <td><?php echo e($row['PASSWORD']); ?></td>
+              </tr>
+            <?php endwhile; ?>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-<!-- Enter the ID of the account to update -->
-<form method="GET" action="upd.php">
-    <label for="id">Account ID:</label>
-    <input type="number" id="id" name="id" min="1" required>
-    <input type="submit" value="Find Account">
-</form>
+    <section class="form-card" aria-labelledby="find-heading">
+      <h2 id="find-heading">Find an account</h2>
+      <p class="section-description">Enter the ID shown in the account list.</p>
+      <form class="admin-form admin-form--lookup" method="GET" action="upd.php">
+        <label for="id">Account ID</label>
+        <input type="number" id="id" name="id" min="1" placeholder="Enter account ID" required>
+        <input class="button" type="submit" value="Find account">
+      </form>
+    </section>
 
-<?php if ($account): ?>
-    <hr>
-    <h3>Edit account ID <?php echo e($account['ID']); ?></h3>
+    <?php if ($account): ?>
+      <section class="form-card" aria-labelledby="edit-heading">
+        <h2 id="edit-heading">Edit account ID <?php echo e($account['ID']); ?></h2>
+        <p class="section-description">Update the account details below.</p>
+        <form class="admin-form" method="POST" action="upd.php">
+          <input type="hidden" name="id" value="<?php echo e($account['ID']); ?>">
 
-    <form method="POST" action="upd.php">
-        <input type="hidden" name="id" value="<?php echo e($account['ID']); ?>">
+          <label for="fname">First Name
+            <input type="text" id="fname" name="fname" value="<?php echo e($account['FNAME']); ?>" required>
+          </label>
 
-        <label for="fname">First Name:</label>
-        <input type="text" id="fname" name="fname" value="<?php echo e($account['FNAME']); ?>" required><br><br>
+          <label for="mname">Middle Name
+            <input type="text" id="mname" name="mname" value="<?php echo e($account['MNAME']); ?>" required>
+          </label>
 
-        <label for="mname">Middle Name:</label>
-        <input type="text" id="mname" name="mname" value="<?php echo e($account['MNAME']); ?>" required><br><br>
+          <label for="lname">Last Name
+            <input type="text" id="lname" name="lname" value="<?php echo e($account['LNAME']); ?>" required>
+          </label>
 
-        <label for="lname">Last Name:</label>
-        <input type="text" id="lname" name="lname" value="<?php echo e($account['LNAME']); ?>" required><br><br>
+          <label for="gender">Gender
+            <select id="gender" name="gender" required>
+              <option value="Male" <?php echo $account['GENDER'] === 'Male' ? 'selected' : ''; ?>>Male</option>
+              <option value="Female" <?php echo $account['GENDER'] === 'Female' ? 'selected' : ''; ?>>Female</option>
+            </select>
+          </label>
 
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-            <option value="Male" <?php echo $account['GENDER'] === 'Male' ? 'selected' : ''; ?>>Male</option>
-            <option value="Female" <?php echo $account['GENDER'] === 'Female' ? 'selected' : ''; ?>>Female</option>
-        </select><br><br>
+          <label for="bday">Birthday
+            <input type="date" id="bday" name="bday" value="<?php echo e($account['BDAY']); ?>" required>
+          </label>
 
-        <label for="bday">Birthday:</label>
-        <input type="date" id="bday" name="bday" value="<?php echo e($account['BDAY']); ?>" required><br><br>
+          <label for="uname">Username
+            <input type="text" id="uname" name="uname" value="<?php echo e($account['USERNAME']); ?>" required>
+          </label>
 
-        <label for="uname">Username:</label>
-        <input type="text" id="uname" name="uname" value="<?php echo e($account['USERNAME']); ?>" required><br><br>
+          <label for="pass">Password
+            <input type="password" id="pass" name="pass" value="<?php echo e($account['PASSWORD']); ?>" required>
+          </label>
 
-        <label for="pass">Password:</label>
-        <input type="password" id="pass" name="pass" value="<?php echo e($account['PASSWORD']); ?>" required><br><br>
+          <div class="form-actions">
+            <input class="button" type="submit" value="Update account">
+          </div>
+        </form>
+      </section>
+    <?php endif; ?>
 
-        <input type="submit" value="Update Account">
-    </form>
-<?php endif; ?>
-
-<br>
-<form action="index.php">
-    <input type="submit" value="Back to Admin Panel">
-</form>
-
+    <nav class="admin-actions" aria-label="Admin actions">
+      <form action="index.php">
+        <input class="button button-quiet" type="submit" value="Back to admin panel">
+      </form>
+    </nav>
+  </main>
+</body>
+</html>
