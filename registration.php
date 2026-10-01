@@ -41,9 +41,10 @@ $error = '';
     <div class="container" id="container">
         <div class="form-container sign-in">
             <form method="POST" action="">
+                <h1>Create Account</h1>
                 <span>Enter your personal information</span> 
                 <?php if ($error !== ''): ?>
-                    <p role="alert"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="form-message" role="alert"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
                 <?php endif; ?>
                 <input type="text" name="fname" placeholder="First Name" pattern="[\p{L}]+" title="Use letters only" required>
                 <input type="text" name="mname" placeholder="Middle Name" pattern="[\p{L}]+" title="Use letters only" required>

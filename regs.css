@@ -15,31 +15,31 @@ body{
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #f0f0f0; 
+    padding: 24px 16px;
+    background-color: #f0f0f0;
 }
 
 /* --- Container (The Card) --- */
 
 .container {
-    background-color: #fff; 
+    background-color: #fff;
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
     position: relative;
-    overflow: hidden; 
-    width: 400px;
-    height: 780px; /* FIXED: Increased height to fit both forms */
+    overflow: hidden;
+    width: min(400px, 100%);
+    min-height: 780px;
     padding: 20px;
 }
 
 /* --- Form Centering --- */
 
 .form-container{
-    /* FIXED: Use flex-direction: column to stack the two form blocks cleanly */
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 740px;
     width: 100%;
 }
 
@@ -47,79 +47,117 @@ body{
     width: 100%;
 }
 
-/* --- Form Styling (For the primary registration form) --- */
-
 .container form{
-    background-color: #fff; 
+    background-color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 0 40px;
-    /* Removed fixed height: 100% here so the two forms can share space */
-    height: auto; 
+    height: auto;
     width: 100%;
     text-align: center;
 }
 
 /* --- Elements --- */
 
+.container h1{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
 .container span{
     font-size: 14px;
     color: #666;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .container input{
-    background-color: #f7f7f7; 
+    background-color: #f7f7f7;
     border: none;
-    margin: 8px 0;
+    margin: 10px 0;
     padding: 15px 15px;
     font-size: 15px;
     border-radius: 5px;
     width: 100%;
     outline: none;
     box-sizing: border-box;
-    color: #666; 
+    color: #333;
 }
 
-/* Style for the primary submit button (REGISTER/LOG IN) */
+.container select{
+    background-color: #f7f7f7;
+    border: none;
+    margin: 10px 0;
+    padding: 15px;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 100%;
+    color: #666;
+}
+
+.form-message{
+    margin: 4px 0;
+    color: #a12622;
+    font-size: 13px;
+}
+
 .container form input[type="SUBMIT"] {
-    background-color: #eee;
-    color: #333;
+    background-color: #333;
+    color: #fff;
     font-size: 14px;
-    padding: 15px 45px;
+    padding: 15px;
     border: 1px solid transparent;
     border-radius: 5px;
     font-weight: 600;
-    letter-spacing: 0.10px;
+    letter-spacing: 0.1px;
     text-transform: uppercase;
-    margin-top: 20px;
+    margin: 6px 0;
     cursor: pointer;
     width: 100%;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.container form input[type="SUBMIT"]:hover{
+    background-color: #555;
 }
 
 /* --- Back Button Styling --- */
 
 .back-button-form {
-    /* This form takes full width */
     width: 100%;
-    margin-top: 15px; 
-    padding: 0 40px; /* Match the padding of the main form */
+    margin-top: 15px;
+    padding: 0 40px;
 }
 
 .back-button-form input[type="submit"] {
-    /* Style the button similarly to the Register button, but less prominent */
-    background-color: #f0f0f0;
+    background-color: #f7f7f7;
     color: #666;
     font-size: 14px;
-    padding: 10px 30px;
-    border: 1px solid #ccc;
+    padding: 15px;
+    border: 1px solid transparent;
     border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
-    width: 100%; /* Make it full width like the main inputs */
+    width: 100%;
 }
 
-/* Removed the unused .container button rule */
-/* .container button{ ... } */
+.back-button-form input[type="submit"]:hover{
+    background-color: #eee;
+}
+
+@media (max-width: 480px){
+    .container{
+        min-height: 0;
+    }
+
+    .form-container{
+        min-height: 0;
+    }
+
+    .container form,
+    .back-button-form{
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+}
