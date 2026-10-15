@@ -210,9 +210,7 @@ $posts = $stmt->get_result();
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Share Your Blog</h1>
-
+    <main class="mainpage-container">
         <nav class="profile-nav" aria-label="Main navigation">
             <a href="index.php" aria-current="page">Home</a>
             <a href="profile.php">Profile</a>
@@ -220,50 +218,53 @@ $posts = $stmt->get_result();
             <a class="profile-logout" href="index.php?logout=1">Log out</a>
         </nav>
 
-        <?php if ($message !== ''): ?>
-            <p><?php echo e($message); ?></p>
-        <?php endif; ?>
+        <div class="container">
+            <h1>Share Your Blog</h1>
 
-        <form method="POST" action="index.php" enctype="multipart/form-data" class="post-form">
-            <input type="hidden" name="action" value="create">
-            <textarea name="content" placeholder="Write your blog post..." required></textarea>
-            <input type="file" name="imgcontent" accept="image/jpeg,image/png,image/gif,image/webp">
-            <button type="submit" name="post_submit">Post</button>
-        </form>
-
-        <div class="post-list">
-            <?php if ($posts->num_rows > 0): ?>
-                <?php while ($post = $posts->fetch_assoc()): ?>
-                    <div class="post-card">
-                        <p class="post-author">Posted by <?php echo e($post['USERNAME'] ?? 'Unknown user'); ?></p>
-                        <h3><?php echo nl2br(e($post['TITLE'])); ?></h3>
-                        <?php if (!empty($post['IMAGE'])): ?>
-                            <img src="../imgstorage/<?php echo e($post['IMAGE']); ?>" alt="Post image">
-                        <?php endif; ?>
-                        <?php if ((int) $post['AUTHOR_ID'] === $userId): ?>
-                            <details>
-                                <summary>Edit post</summary>
-                                <form method="POST" action="index.php" enctype="multipart/form-data">
-                                    <input type="hidden" name="action" value="edit">
-                                    <input type="hidden" name="post_id" value="<?php echo e($post['PID']); ?>">
-                                    <textarea name="content" required><?php echo e($post['TITLE']); ?></textarea>
-                                    <input type="file" name="imgcontent" accept="image/jpeg,image/png,image/gif,image/webp">
-                                    <button type="submit">Save Changes</button>
-                                </form>
-                            </details>
-                            <form method="POST" action="index.php">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="post_id" value="<?php echo e($post['PID']); ?>">
-                                <button type="submit" onclick="return confirm('Delete this post?');">Delete</button>
-                            </form>
-                        <?php endif; ?>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p class="no-posts">No posts to show.</p>
+            <?php if ($message !== ''): ?>
+                <p><?php echo e($message); ?></p>
             <?php endif; ?>
-        </div>
 
-    </div>
+            <form method="POST" action="index.php" enctype="multipart/form-data" class="post-form">
+                <input type="hidden" name="action" value="create">
+                <textarea name="content" placeholder="Write your blog post..." required></textarea>
+                <input type="file" name="imgcontent" accept="image/jpeg,image/png,image/gif,image/webp">
+                <button type="submit" name="post_submit">Post</button>
+            </form>
+
+            <div class="post-list">
+                <?php if ($posts->num_rows > 0): ?>
+                    <?php while ($post = $posts->fetch_assoc()): ?>
+                        <div class="post-card">
+                            <p class="post-author">Posted by <?php echo e($post['USERNAME'] ?? 'Unknown user'); ?></p>
+                            <h3><?php echo nl2br(e($post['TITLE'])); ?></h3>
+                            <?php if (!empty($post['IMAGE'])): ?>
+                                <img src="../imgstorage/<?php echo e($post['IMAGE']); ?>" alt="Post image">
+                            <?php endif; ?>
+                            <?php if ((int) $post['AUTHOR_ID'] === $userId): ?>
+                                <details>
+                                    <summary>Edit post</summary>
+                                    <form method="POST" action="index.php" enctype="multipart/form-data">
+                                        <input type="hidden" name="action" value="edit">
+                                        <input type="hidden" name="post_id" value="<?php echo e($post['PID']); ?>">
+                                        <textarea name="content" required><?php echo e($post['TITLE']); ?></textarea>
+                                        <input type="file" name="imgcontent" accept="image/jpeg,image/png,image/gif,image/webp">
+                                        <button type="submit">Save Changes</button>
+                                    </form>
+                                </details>
+                                <form method="POST" action="index.php">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="post_id" value="<?php echo e($post['PID']); ?>">
+                                    <button type="submit" onclick="return confirm('Delete this post?');">Delete</button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p class="no-posts">No posts to show.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
