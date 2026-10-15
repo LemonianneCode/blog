@@ -101,4 +101,62 @@ body {
     overflow-wrap: anywhere;
     font-weight: 600;
 }
+
+.profile-card form {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.profile-card form label {
+    font-weight: 600;
+}
+
+.profile-card form input,
+.profile-card form select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1c4e9;
+    border-radius: 8px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+}
+
+.profile-card form h2 {
+    margin: 20px 0 0;
+    color: #6a1b9a;
+}
+
+.profile-card form p {
+    margin: 0;
+}
+
+.profile-card form button {
+    justify-self: start;
+    margin-top: 10px;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: #6a1b9a;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+}
+
+.account-deletion {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #d1c4e9;
+}
+
+.account-deletion h2 {
+    margin: 0 0 10px;
+    color: #b71c1c;
+}
+
+.account-deletion form button {
+    background: #b71c1c;
+}
         
