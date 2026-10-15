@@ -2,6 +2,13 @@
 session_start();
 include ('includes/db_conn.php');
 
+if (isset($_GET['logout'])) {
+    $_SESSION = [];
+    session_destroy();
+    header('Location: index.php');
+    exit;
+}
+
 if (isset($_GET['back_to_login'])) {
     unset($_SESSION['login_attempts'], $_SESSION['reset_user_id']);
     session_regenerate_id(true);
@@ -30,6 +37,8 @@ if (isset($_POST['login'])) {
         $errorMessage = 'Please enter your username and password.';
     } elseif ($username === 'root' && $password === 'admin123') {
         $_SESSION['login_attempts'] = 0;
+        $_SESSION['is_admin'] = true;
+        session_regenerate_id(true);
         header('Location: Admin/index.php');
         exit;
     } else {

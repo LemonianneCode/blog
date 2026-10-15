@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/auth.php';
 include ('../includes/db_conn.php');
 
 $sql = "SELECT * FROM acc_info ORDER BY LNAME ASC";
@@ -74,6 +75,7 @@ while($row = $query->fetch_assoc()){
         <input class="button" type="submit" value="Update account">
       </form>
       <form method="GET" action="../index.php">
+        <input type="hidden" name="logout" value="1">
         <input class="button button-quiet" type="submit" value="Log out">
       </form>
     </nav>

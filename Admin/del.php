@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/auth.php';
 include('../includes/db_conn.php');
 
 $message = '';
