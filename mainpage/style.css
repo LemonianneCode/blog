@@ -49,6 +49,16 @@ textarea,
   font: 15px 'Quicksand', sans-serif;
 }
 
+.post-form label,
+.image-upload-note {
+  font: 500 14px 'Quicksand', sans-serif;
+}
+
+.image-upload-note {
+  margin-top: -8px;
+  color: #666;
+}
+
 textarea {
   min-height: 120px;
   padding: 14px;

@@ -16,6 +16,7 @@ if (isset($_GET['logout'])) {
 
 $userId = (int) $_SESSION['user_id'];
 $message = '';
+const MAX_IMAGE_SIZE = 50 * 1024 * 1024;
 
 function e($value): string
 {
@@ -28,14 +29,16 @@ function iniBytes(string $value): int
     $unit = strtolower(substr($value, -1));
     $number = (float) $value;
 
-    if ($unit === 'g') {
-        $number *= 1024;
-    }
-    if ($unit === 'm') {
-        $number *= 1024;
-    }
-    if ($unit === 'k') {
-        $number *= 1024;
+    switch ($unit) {
+        case 'g':
+            $number *= 1024 ** 3;
+            break;
+        case 'm':
+            $number *= 1024 ** 2;
+            break;
+        case 'k':
+            $number *= 1024;
+            break;
     }
 
     return (int) $number;
@@ -67,24 +70,26 @@ function uploadImage(): array
         ];
     }
 
-    $maxUploadSize = iniBytes(ini_get('upload_max_filesize'));
-    if ($_FILES['imgcontent']['size'] > $maxUploadSize) {
-        return [null, 'The image must be ' . ini_get('upload_max_filesize') . ' or smaller.'];
-    }
-
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    $imageType = mime_content_type($_FILES['imgcontent']['tmp_name']);
-
-    if (!in_array($imageType, $allowedTypes, true)) {
-        return [null, 'Please upload a JPG, PNG, GIF, or WEBP image.'];
+    if ($_FILES['imgcontent']['size'] > MAX_IMAGE_SIZE) {
+        return [null, 'Images must be 50 MB or smaller.'];
     }
 
     $extensions = [
         'image/jpeg' => 'jpg',
         'image/png' => 'png',
         'image/gif' => 'gif',
-        'image/webp' => 'webp'
+        'image/webp' => 'webp',
+        'image/bmp' => 'bmp',
+        'image/x-ms-bmp' => 'bmp',
+        'image/avif' => 'avif'
     ];
+    $fileInfo = new finfo(FILEINFO_MIME_TYPE);
+    $imageType = $fileInfo->file($_FILES['imgcontent']['tmp_name']);
+
+    if (!is_string($imageType) || !isset($extensions[$imageType])) {
+        return [null, 'Please upload a JPG, PNG, GIF, WEBP, BMP, or AVIF image.'];
+    }
+
     $imageName = bin2hex(random_bytes(16)) . '.' . $extensions[$imageType];
     $uploadPath = __DIR__ . '/../imgstorage/' . $imageName;
 
@@ -95,11 +100,21 @@ function uploadImage(): array
     return [$imageName, ''];
 }
 
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST' &&
+    (int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0 &&
+    iniBytes(ini_get('post_max_size')) > 0 &&
+    (int) $_SERVER['CONTENT_LENGTH'] > iniBytes(ini_get('post_max_size'))
+) {
+    $message = 'The upload is larger than PHP allows. Maximum request size: '
+        . ini_get('post_max_size') . '.';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     $postId = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT);
 
-    if ($action === 'create') {
+    if ($message === '' && $action === 'create') {
         $content = trim($_POST['content'] ?? '');
 
         if ($content === '') {
@@ -113,12 +128,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'INSERT INTO vlog_posts (TITLE, IMAGE, AUTHOR_ID) VALUES (?, ?, ?)'
             );
             $stmt->bind_param('ssi', $content, $imageName, $userId);
-            $message = $stmt->execute()
-                ? 'Post published successfully.'
-                : 'Post could not be published: ' . $stmt->error;
+            if ($stmt->execute()) {
+                $message = 'Post published successfully.';
+            } else {
+                $message = 'Post could not be published: ' . $stmt->error;
+                if ($imageName !== null) {
+                    $imagePath = __DIR__ . '/../imgstorage/' . $imageName;
+                    if (is_file($imagePath)) {
+                        unlink($imagePath);
+                    }
+                }
+            }
             $stmt->close();
         }
-    } elseif ($action === 'delete' && $postId) {
+    } elseif ($message === '' && $action === 'delete' && $postId) {
         $stmt = $dbconn->prepare(
             'SELECT IMAGE FROM vlog_posts WHERE PID = ? AND AUTHOR_ID = ?'
         );
@@ -146,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         }
-    } elseif ($action === 'edit' && $postId) {
+    } elseif ($message === '' && $action === 'edit' && $postId) {
         $content = trim($_POST['content'] ?? '');
 
         if ($content === '') {
@@ -173,9 +196,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          WHERE PID = ? AND AUTHOR_ID = ?'
                     );
                     $stmt->bind_param('ssii', $content, $imageName, $postId, $userId);
-                    $message = $stmt->execute()
-                        ? 'Post updated successfully.'
-                        : 'Post could not be updated: ' . $stmt->error;
+                    if ($stmt->execute()) {
+                        $message = 'Post updated successfully.';
+                    } else {
+                        $message = 'Post could not be updated: ' . $stmt->error;
+                        if ($newImage !== null) {
+                            $newImagePath = __DIR__ . '/../imgstorage/' . $newImage;
+                            if (is_file($newImagePath)) {
+                                unlink($newImagePath);
+                            }
+                        }
+                    }
                     $stmt->close();
 
                     if ($newImage && !empty($post['IMAGE'])) {
@@ -228,7 +259,9 @@ $posts = $stmt->get_result();
             <form method="POST" action="index.php" enctype="multipart/form-data" class="post-form">
                 <input type="hidden" name="action" value="create">
                 <textarea name="content" placeholder="Write your blog post..." required></textarea>
-                <input type="file" name="imgcontent" accept="image/jpeg,image/png,image/gif,image/webp">
+                <label for="post-image">Add an image (optional)</label>
+                <input type="file" id="post-image" name="imgcontent" accept="image/jpeg,image/png,image/gif,image/webp,image/bmp,image/avif">
+                <small class="image-upload-note">JPG, PNG, GIF, WebP, BMP, or AVIF; maximum 50 MB.</small>
                 <button type="submit" name="post_submit">Post</button>
             </form>
 
@@ -248,7 +281,8 @@ $posts = $stmt->get_result();
                                         <input type="hidden" name="action" value="edit">
                                         <input type="hidden" name="post_id" value="<?php echo e($post['PID']); ?>">
                                         <textarea name="content" required><?php echo e($post['TITLE']); ?></textarea>
-                                        <input type="file" name="imgcontent" accept="image/jpeg,image/png,image/gif,image/webp">
+                                        <label for="edit-image-<?php echo e($post['PID']); ?>">Replace image (optional)</label>
+                                        <input type="file" id="edit-image-<?php echo e($post['PID']); ?>" name="imgcontent" accept="image/jpeg,image/png,image/gif,image/webp,image/bmp,image/avif">
                                         <button type="submit">Save Changes</button>
                                     </form>
                                 </details>
