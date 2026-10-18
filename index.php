@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/includes/no_cache.php';
 include ('includes/db_conn.php');
 
 if (isset($_GET['logout'])) {
@@ -79,15 +80,15 @@ if (isset($_POST['login'])) {
 <body>
     <div class="container" id="container">
         <div class="form-container sign-in">
-            <form method="POST" action="">
+            <form method="POST" action="" autocomplete="off">
                 <h1>Sign In</h1>
                 <span>Enter your email and password</span>
                 <?php if ($errorMessage !== ''): ?>
                     <p class="form-message" role="alert"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?></p>
                 <?php endif; ?>
-                <input type="text" name="username" placeholder="Username" id="username" required>
+                <input type="text" name="username" placeholder="Username" id="username" autocomplete="off" required>
                 <div class="password-field">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required>
                     <button class="toggle-password" type="button" aria-label="Show password" aria-pressed="false" title="Show password">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path>
@@ -105,5 +106,6 @@ if (isset($_POST['login'])) {
         </div>
     </div>
     <script src="script.js"></script>
+    <script src="includes/session-page.js"></script>
 </body>
 </html>

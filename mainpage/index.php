@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../includes/no_cache.php';
 include('../includes/db_conn.php');
 
 if (!isset($_SESSION['user_id'])) {
@@ -300,5 +301,6 @@ $posts = $stmt->get_result();
             </div>
         </div>
     </main>
+    <script src="../includes/session-page.js"></script>
 </body>
 </html>

@@ -80,5 +80,6 @@ while($row = $query->fetch_assoc()){
       </form>
     </nav>
   </main>
+  <script src="../includes/session-page.js"></script>
 </body>
 </html>

@@ -187,5 +187,6 @@ function e($value): string
       </form>
     </nav>
   </main>
+  <script src="../includes/session-page.js"></script>
 </body>
 </html>
