@@ -161,7 +161,7 @@ if (isset($_POST['update_password'])) {
     <link rel="stylesheet" href="style.css">
     <title>Forgot Password</title>
 </head>
-<body>
+<body class="login-page">
     <div class="container forgot-container">
         <div class="form-container sign-in">
             <form method="POST" action="">
