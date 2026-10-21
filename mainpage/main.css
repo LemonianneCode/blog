@@ -8,7 +8,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 32px 20px;
-  background: #f0f0f0;
+  background: #f0f0f0 url("../img/Original-Gray-Aesthetic-Wallpaper.jpg") center / cover fixed no-repeat;
   color: #333;
   font-family: 'Playfair Display', serif;
 }

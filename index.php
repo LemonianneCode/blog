@@ -77,7 +77,7 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="style.css">
     <title>LOG IN</title>
 </head>
-<body>
+<body class="login-page">
     <div class="container" id="container">
         <div class="form-container sign-in">
             <form method="POST" action="" autocomplete="off">

@@ -22,6 +22,14 @@ body{
     /* Removed background-image: url(bg.png); to ensure consistency */
 }
 
+body.login-page{
+    background-image: url("img/Original-Gray-Aesthetic-Wallpaper.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
 /* --- Container (The Card) --- */
 
 .container {
