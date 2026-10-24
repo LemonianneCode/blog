@@ -58,6 +58,47 @@ body {
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
 }
 
+.announcements-page {
+  display: grid;
+  gap: 18px;
+}
+
+.announcements-page > h1 {
+  margin: 0 0 6px;
+  color: #333;
+  font-size: 30px;
+}
+
+.announcement-feed-card {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  background: #f7f7f7;
+}
+
+.announcement-feed-card time {
+  color: #777;
+  font: 13px 'Quicksand', sans-serif;
+}
+
+.announcement-feed-card p {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.announcement-feed-card img {
+  display: block;
+  width: min(100%, 560px);
+  height: auto;
+  max-height: 360px;
+  margin-top: 14px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
 .profile-card h1 {
   margin: 0 0 24px;
   color: #333;

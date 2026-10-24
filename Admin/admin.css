@@ -136,6 +136,12 @@ h1 {
   color: #4059a8;
 }
 
+.notice-success {
+  border-color: #cbe8d4;
+  background: #effaf2;
+  color: #267142;
+}
+
 .admin-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -184,6 +190,80 @@ h1 {
   grid-column: 1 / -1;
 }
 
+.announcement-form {
+  display: grid;
+  gap: 10px;
+}
+
+.announcement-form label {
+  color: #536078;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.announcement-form textarea,
+.announcement-form input[type="file"] {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #dce1eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #29364c;
+  font: inherit;
+}
+
+.announcement-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.announcement-form small {
+  margin-top: -4px;
+  color: #758096;
+}
+
+.announcement-form button {
+  justify-self: start;
+  margin-top: 8px;
+}
+
+.announcement-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.announcement-list > h2 {
+  font-size: 22px;
+}
+
+.announcement-card {
+  padding: 20px 24px;
+  border: 1px solid #e5e9f1;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(34, 48, 76, 0.06);
+}
+
+.announcement-card time {
+  color: #758096;
+  font-size: 13px;
+}
+
+.announcement-card p {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.announcement-card img {
+  display: block;
+  width: min(100%, 720px);
+  max-height: 480px;
+  margin-top: 14px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
 .admin-actions {
   display: flex;
   flex-wrap: wrap;
@@ -208,6 +288,13 @@ input[type="submit"] {
   font: inherit;
   font-weight: 650;
   transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+
+.admin-actions .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .button:hover,

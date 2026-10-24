@@ -54,6 +54,7 @@ function e($value): string
     <main class="profile-container">
         <nav class="profile-nav" aria-label="Main navigation">
             <a href="index.php">Home</a>
+            <a href="announcements.php">Announcements</a>
             <a href="profile.php" aria-current="page">Profile</a>
             <a href="settings.php">Settings</a>
             <a class="profile-logout" href="index.php?logout=1">Log out</a>

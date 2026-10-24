@@ -245,6 +245,7 @@ $posts = $stmt->get_result();
     <main class="mainpage-container">
         <nav class="profile-nav" aria-label="Main navigation">
             <a href="index.php" aria-current="page">Home</a>
+            <a href="announcements.php">Announcements</a>
             <a href="profile.php">Profile</a>
             <a href="settings.php">Settings</a>
             <a class="profile-logout" href="index.php?logout=1">Log out</a>
