@@ -68,7 +68,7 @@ while($row = $query->fetch_assoc()){
       </div>
     </section>
     <nav class="admin-actions" aria-label="Admin actions">
-      <a class="button" href="announcement.php">Manage announcements</a>
+      <a class="button" href="announcement.php">Post an Announcement</a>
       <form method="GET" action="del.php">
         <input class="button button-danger" type="submit" value="Delete account">
       </form>

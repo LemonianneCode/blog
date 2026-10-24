@@ -44,7 +44,7 @@ $announcements = $stmt->get_result();
         </nav>
 
         <section class="container announcements-page" aria-labelledby="announcements-heading">
-            <h1 id="announcements-heading">Announcements</h1>
+            <h1 id="announcements-heading">PRMSU Announcements</h1>
             <?php if ($announcements->num_rows > 0): ?>
                 <?php while ($announcement = $announcements->fetch_assoc()): ?>
                     <article class="announcement-feed-card">
